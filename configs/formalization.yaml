@@ -1,0 +1,47 @@
+client:
+  engine: anthropic
+  is_async: false
+  mode: ANTHROPIC_TOOLS
+
+formalize_gen:
+  model: claude-3-5-sonnet-20241022
+  temperature: 0.3
+  max_tokens: 4096
+
+search_gen:
+  model: claude-3-5-haiku-20241022
+  max_tokens: 4096
+  temperature: 0.3
+
+search_config:
+  # encoded_data_path: /path/to/encoded/mathlib
+  encoded_data_path: /home/long/code/autoform4lean/models/encoded_mathlib_coderankembed.pkl
+  model_name_or_path: nomic-ai/CodeRankEmbed
+  top_k: 5
+
+feedback_gen:
+  model: claude-3-5-sonnet-20241022
+  max_tokens: 4096
+  temperature: 0.7
+
+logging:
+  out: logs/formalization_pipeline.log
+  level: info
+
+# lake_path: /path/to/lake
+# lean_workspace: /path/to/lean/workspace
+lake_path: /home/long/.elan/bin/lake
+lean_workspace: /home/long/code/mathlib4-deepseek
+process_all: true
+enable_search: true
+enable_feedback: true
+
+process_all: true
+start_idx: 0
+end_idx: 3
+seed: 42
+
+max_retries: 1
+num_max_iterations: 1
+# output_path: /path/to/output
+output_path: dummy.jsonl

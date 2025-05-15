@@ -1,0 +1,20 @@
+client:
+  engine: anthropic
+  is_async: false
+  mode: ANTHROPIC_TOOLS
+
+generation:
+  model: claude-3-5-haiku-20241022
+  temperature: 1.0
+  max_tokens: 4096
+
+logging:
+  out: logs/semantic_check.log
+  level: info
+
+start_idx: 0
+end_idx: null
+
+max_retries: 1
+input_path: /path/to/informalization/input
+output_path: /path/to/output

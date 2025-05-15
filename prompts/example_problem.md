@@ -1,0 +1,1 @@
+Consider a graph where each vertex is connected to exactly three other vertices (a 3-regular graph). Prove that it is possible to color the edges of such a graph using only three colors in such a way that no two adjacent edges share the same color if and only if the graph is bipartite.
