@@ -15,7 +15,7 @@ sys.path.insert(0, str(project_root))
 from src.formalization import FormalizationResponse, FormalizationPipeline
 
 DEFAULT_LAKE_PATH = f"{os.path.expanduser('~')}/.elan/bin/lake"
-DEFAULT_LEAN_WORKSPACE = f"{os.path.expanduser('~')}/code/mathlib4-deepseek"
+DEFAULT_LEAN_WORKSPACE = f"{os.path.expanduser('~')}/code/mathlib4"
 
 
 def read_config(config_path: str) -> dict:

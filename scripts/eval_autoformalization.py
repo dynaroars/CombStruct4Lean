@@ -127,7 +127,7 @@ async def process_problems(
             output = {
                 "id": item["id"],
                 "formal_statement": item["formal_statement"],
-                "backtranslated_informal": item["backtranslated_informal"],
+                "formal_statement_pred": item["formal_statement_pred"],
                 "informal_problem": item["informal_problem"],
                 "explanation": resp.explanation,
                 "label": resp.label,
