@@ -1,3 +1,6 @@
 [submodule "mathlib4"]
 	path = mathlib4
 	url = https://github.com/xinhjBrant/mathlib4.git
+[submodule "dsprover"]
+	path = dsprover
+	url = https://github.com/deepseek-ai/DeepSeek-Prover-V1.5.git
