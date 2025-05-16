@@ -13,10 +13,8 @@ from tqdm import tqdm
 project_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.formalization import FormalizationResponse, FormalizationPipeline
-
-DEFAULT_LAKE_PATH = f"{os.path.expanduser('~')}/.elan/bin/lake"
-DEFAULT_LEAN_WORKSPACE = f"{os.path.expanduser('~')}/code/mathlib4"
+from src.common import compile_lean4, DEFAULT_LAKE_PATH, DEFAULT_LEAN_WORKSPACE
+from src.formalization import FormalizationPipeline
 
 
 def parse_args():
@@ -41,6 +39,17 @@ def read_config(config_path: str) -> dict:
     """Read configuration from yaml file."""
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
+
+
+def compile_statement(stmt):
+    try:
+        status, _ = compile_lean4(
+            stmt, lake_path=DEFAULT_LAKE_PATH, lean_workspace=DEFAULT_LEAN_WORKSPACE
+        )
+        return status
+    except Exception as e:
+        # print(f"Error validating {item['example_id']}: {e}")
+        return False
 
 
 async def process_problems(
@@ -80,17 +89,25 @@ async def process_problems(
             if resp:
                 successful += 1
 
+            formalization = resp.to_code() if resp else None
+
             output = {
                 "id": item["id"],
                 "informal_problem": item["informal_problem"],
-                "formal_statement": resp.to_code() if resp else None,
+                "formal_statement": item["formal_statement"],
+                "formal_statement_pred": formalization,
+                "compiled": (
+                    compile_statement(formalization) if formalization else False
+                ),
             }
         except Exception as e:
             logger.error(f"Error processing problem {i}: {e}")
             output = {
                 "id": item["id"],
                 "informal_problem": item["informal_problem"],
-                "formal_statement": None,
+                "formal_statement": item["formal_statement"],
+                "formal_statement_pred": None,
+                "compiled": False,
             }
         finally:
             with open(output_path, "a") as f:

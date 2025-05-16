@@ -129,8 +129,9 @@ async def process_problems(
                 "formal_statement": item["formal_statement"],
                 "formal_statement_pred": item["formal_statement_pred"],
                 "informal_problem": item["informal_problem"],
+                "compiled": item["compiled"],
                 "explanation": resp.explanation,
-                "label": resp.label,
+                "aligned": resp.label,
             }
             with open(output_path, "a") as f:
                 f.write(json.dumps(output) + "\n")

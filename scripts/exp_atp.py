@@ -15,9 +15,6 @@ sys.path.insert(0, str(project_root))
 
 from src.common import BaseGenerator, read_system_prompt
 
-DEFAULT_LAKE_PATH = f"{os.path.expanduser('~')}/.elan/bin/lake"
-DEFAULT_LEAN_WORKSPACE = f"{os.path.expanduser('~')}/code/mathlib4"
-
 
 def parse_args():
     """Parse command line arguments."""

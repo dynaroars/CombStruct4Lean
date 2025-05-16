@@ -12,10 +12,7 @@ from vllm import LLM, SamplingParams
 project_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(project_root))
 
-from src.common import compile_lean4
-
-DEFAULT_LAKE_PATH = f"{os.path.expanduser('~')}/.elan/bin/lake"
-DEFAULT_LEAN_WORKSPACE = f"{os.path.expanduser('~')}/code/mathlib4"
+from src.common import compile_lean4, DEFAULT_LAKE_PATH, DEFAULT_LEAN_WORKSPACE
 
 
 def extract_code_block(text):
