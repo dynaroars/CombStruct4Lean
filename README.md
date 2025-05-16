@@ -55,8 +55,10 @@ To perform benchmark creation process (Sec. 3), change the configuration files `
 ```bash
 # Formalization process (Sec. 3.2)
 python scripts/pipeline_formalize.py
+
 # Informalization (Sec. 3.3)
 python scripts/pipeline_informalization.py
+
 # Semantic check (Sec 3.3)
 python scripts/pipeline_semantic_check.py
 ```
@@ -78,6 +80,7 @@ Run ablation Study:
 ```bash
 # No Premise setting
 python scripts/exp_ablation.py --no-search
+
 # No Guided Feedback setting
 python scripts/exp_ablation.py --no-search --no-feedback
 ```
@@ -85,21 +88,28 @@ python scripts/exp_ablation.py --no-search --no-feedback
 Evaluate with `Ground-truth Alignment`
 
 ```bash
-python scripts/eval_autoformalization.py /path/to/experiment/output data/CombStruct4Lean.jsonl
-python scripts/summarize_autoformalization.py /path/to/experiment/output/1 /path/to/experiment/output/2 ...
+python scripts/eval_autoformalization.py \
+  /path/to/experiment/output \
+  data/CombStruct4Lean.jsonl
+
+python scripts/summarize_autoformalization.py \
+  /path/to/experiment/output/1 \
+  /path/to/experiment/output/2 \
+  ...
 ```
 
 ### Automated Theorem Proving (Sec. 4.2)
 
-Run experiments with `Deepseek-Prover` and `Goedel-Prover`
+Run experiments with [`Deepseek-Prover`](https://arxiv.org/abs/2408.08152) and [`Goedel-Prover`](https://arxiv.org/abs/2502.07640)
 
 ```bash
 cp -t dsprover/configs configs/sampling_deepseek.py configs/sampling_goedel.py
-cp -t dsprover/datasets data/benchmark_dsprover.jsonl
+cp data/benchmark_dsprover.jsonl dsprover/datasets
 
 python -m prover.launch \
   --config=configs/sampling_{deepseek,goedel}.py \
   --log_dir=logs/sampling_{deepseek,goedel}
+
 python -m prover.summarize \
   --config=configs/sampling_{deepseek,goedel}.py \
   --log_dir=logs/sampling_{deepseek,goedel}
@@ -111,5 +121,6 @@ Run experiments with `Claude-3.5-Sonnet` and `o4-mini`
 python scripts/exp_atp.py \
   --config configs/theorem_proving_{sonnet,o4mini}.yaml \
   --num-responses {1,5,10}
+
 python scripts/proof_compile_check.py /path/to/experiment/output
 ```
